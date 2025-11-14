@@ -331,13 +331,19 @@ def main():
     # Запускаем бота
     print("🚀 Бот запущен! Нажмите Ctrl+C для остановки")
     
-    # Для Render - используем порт из переменной окружения
-    port = int(os.getenv("PORT", 8080))
-    app.run_webhook(
-        listen="0.0.0.0",
-        port=port,
-        webhook_url=os.getenv("RENDER_EXTERNAL_URL", "")
-    )
+    # Проверяем, используется ли webhook
+    webhook_url = os.getenv("WEBHOOK_URL")
+    if webhook_url:
+        # Используем webhook если указан URL
+        port = int(os.getenv("PORT", 8080))
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            webhook_url=webhook_url
+        )
+    else:
+        # Используем polling (рекомендуется для Render)
+        app.run_polling()
 
 if __name__ == "__main__":
     main()
