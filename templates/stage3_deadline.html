@@ -6,97 +6,99 @@
     <title>Этап 3: Срочность</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial Black', 'Arial Bold', sans-serif; }
+        body { 
+            font-family: 'Arial Black', 'Arial Bold', 'Apple Color Emoji', 'Noto Color Emoji', 'EmojiOne Color', sans-serif; 
+        }
         .container { 
-            width: 1080px; 
-            height: 1080px; 
+            width: 800px; 
+            height: 600px; 
             background: linear-gradient(135deg, #ff0844 0%, #ffb199 50%, #ff6b6b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 60px;
+            padding: 40px;
             color: white;
             position: relative;
             overflow: hidden;
         }
         .content {
             text-align: center;
-            max-width: 900px;
+            max-width: 720px;
             position: relative;
             z-index: 2;
         }
         .title-box {
             background: rgba(0,0,0,0.4);
-            padding: 30px;
-            border-radius: 25px;
-            margin-bottom: 40px;
-            border: 4px solid #fff200;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid #fff200;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.5);
         }
         .emoji {
-            font-size: 120px;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            font-size: 60px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             display: block;
         }
         h1 {
-            font-size: 75px;
-            margin-bottom: 20px;
+            font-size: 36px;
+            margin-bottom: 10px;
             font-weight: 900;
-            text-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             line-height: 1.1;
         }
         .name {
-            font-size: 48px;
+            font-size: 22px;
             color: #fff200;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             font-weight: 800;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .urgent {
-            font-size: 56px;
+            font-size: 24px;
             color: #fff200;
             font-weight: 900;
-            margin: 30px 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .limited {
             background: linear-gradient(45deg, #ff0844, #ff6b6b);
-            border: 5px solid #fff200;
-            padding: 40px;
-            border-radius: 25px;
-            margin: 30px 0;
-            font-size: 44px;
+            border: 3px solid #fff200;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-size: 20px;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
         }
         .countdown {
             background: rgba(0,0,0,0.7);
-            padding: 30px;
-            border-radius: 20px;
-            margin: 30px 0;
-            border: 3px solid #fff200;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid #fff200;
         }
         .time {
-            font-size: 52px;
+            font-size: 28px;
             color: #ff0844;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .spots {
-            font-size: 38px;
+            font-size: 18px;
             color: #fff200;
             font-weight: 800;
-            margin-top: 20px;
+            margin-top: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .final-call {
-            font-size: 42px;
+            font-size: 18px;
             color: #fff200;
             font-weight: 800;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            margin-top: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-top: 15px;
         }
     </style>
 </head>
