@@ -1,1 +1,1 @@
-web: python funnel_bot.py
+worker: python funnel_bot.py

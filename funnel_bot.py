@@ -331,19 +331,26 @@ def main():
     # Запускаем бота
     print("🚀 Бот запущен! Нажмите Ctrl+C для остановки")
     
-    # Проверяем, используется ли webhook
-    webhook_url = os.getenv("WEBHOOK_URL")
-    if webhook_url:
-        # Используем webhook если указан URL
-        port = int(os.getenv("PORT", 8080))
-        app.run_webhook(
-            listen="0.0.0.0",
-            port=port,
-            webhook_url=webhook_url
-        )
-    else:
-        # Используем polling (рекомендуется для Render)
+    # Для Render используем polling с привязкой к порту
+    port = int(os.getenv("PORT", 8080))
+    
+    # Запускаем polling в отдельном потоке и держим основной поток живым
+    import threading
+    import time
+    
+    def run_bot():
         app.run_polling()
+    
+    # Запускаем бота в отдельном потоке
+    bot_thread = threading.Thread(target=run_bot, daemon=True)
+    bot_thread.start()
+    
+    # Держим основной поток живым для Render
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("🛑 Бот остановлен")
 
 if __name__ == "__main__":
     main()
