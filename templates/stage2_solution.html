@@ -6,61 +6,119 @@
     <title>Этап 2: Решение</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { font-family: 'Arial Black', 'Arial Bold', sans-serif; }
         .container { 
             width: 1080px; 
             height: 1080px; 
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px;
+            padding: 60px;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
         .content {
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+        .emoji {
+            font-size: 120px;
+            margin-bottom: 40px;
+            animation: rotate 3s ease-in-out infinite;
+        }
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
         }
         h1 {
-            font-size: 48px;
-            margin-bottom: 30px;
-            font-weight: 700;
+            font-size: 68px;
+            margin-bottom: 40px;
+            font-weight: 900;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        .name {
+            font-size: 52px;
+            color: #00d2d3;
+            margin-bottom: 50px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .benefits {
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            padding: 40px;
+            border-radius: 30px;
+            margin: 40px 0;
+            border: 3px solid #00d2d3;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
         .benefit {
-            font-size: 32px;
+            font-size: 48px;
             color: #ffeb3b;
-            margin: 20px 0;
-            line-height: 1.6;
+            margin: 25px 0;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         .description {
-            font-size: 22px;
-            line-height: 1.8;
+            font-size: 38px;
+            line-height: 1.4;
             margin: 40px 0;
-            opacity: 0.95;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .highlight {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            padding: 35px;
+            border-radius: 25px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 4px solid white;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <h1>✨ Решение для {{name}}</h1>
-            <div class="description">
-                Наша платформа позволит экономить 10+ часов в неделю на рутинных задачах
+            <div class="emoji">💡</div>
+            <h1>ЕСТЬ РЕШЕНИЕ!</h1>
+            <div class="name">{{name}}, мы знаем как помочь</div>
+            <div class="benefits">
+                <div class="benefit">📈 +40% ЭФФЕКТИВНОСТИ</div>
+                <div class="benefit">⏱️ -10 ЧАСОВ/НЕДЕЛЮ</div>
+                <div class="benefit">💰 ROI ЗА 30 ДНЕЙ</div>
             </div>
             <div class="highlight">
-                <div class="benefit">📈 +40% эффективности</div>
-                <div class="benefit">⏱️ -10 часов/неделю</div>
-                <div class="benefit">💰 ROI за 30 дней</div>
+                <div class="description">
+                    Наша платформа позволит экономить<br>
+                    <strong>10+ ЧАСОВ В НЕДЕЛЮ</strong><br>
+                    на рутинных задачах
+                </div>
             </div>
-            <div class="description">
-                Специально разработано для профессионалов
-            </div>
+            <div class="description">🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯</div>
         </div>
     </div>
 </body>

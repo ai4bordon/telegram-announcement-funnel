@@ -36,8 +36,11 @@ class FunnelBot:
     def html_to_png(self, html_content, output_path, user_name):
         """Конвертирует HTML в PNG с персонализацией"""
         try:
+            # Заменяем плейсхолдеры на реальные данные
+            html_content = html_content.replace("{{name}}", user_name)
+            
             # Создаем изображение 1080x1080
-            img = Image.new('RGB', (1080, 1080), color='#667eea')
+            img = Image.new('RGB', (1080, 1080), color='white')
             draw = ImageDraw.Draw(img)
             
             # Определяем этап по пути файла
@@ -47,81 +50,47 @@ class FunnelBot:
             elif 'stage3' in str(output_path):
                 stage = 3
             
-            # Тексты для каждого этапа с персонализацией
+            # Цветовые схемы для каждого этапа
             if stage == 1:
-                lines = [
-                    "🚀 Ты пропустил важное!",
-                    "",
-                    f"Привет, {user_name}!",
-                    "",
-                    "Каждый день упускаются огромные",
-                    "возможности из-за неавтоматизированных",
-                    "процессов.",
-                    "",
-                    "Но это можно исправить прямо сейчас!"
-                ]
+                # Этап 1: Привлечение внимания (красно-оранжевый)
+                bg_colors = ['#ff6b6b', '#ee5a24', '#ff9ff3']
+                text_color = '#ffffff'
+                accent_color = '#ffd700'
             elif stage == 2:
-                lines = [
-                    "✨ Решение для тебя!",
-                    "",
-                    f"{user_name}, наша платформа позволит",
-                    "экономить 10+ часов в неделю",
-                    "на рутинных задачах",
-                    "",
-                    "📈 +40% эффективности",
-                    "⏱️ -10 часов/неделю",
-                    "💰 ROI за 30 дней"
-                ]
+                # Этап 2: Решение (сине-фиолетовый)
+                bg_colors = ['#667eea', '#764ba2', '#f093fb']
+                text_color = '#ffffff'
+                accent_color = '#00d2d3'
             else:  # stage 3
-                lines = [
-                    "⏰ Последний день!",
-                    "",
-                    f"{user_name}, у тебя есть последние",
-                    "24 часа, чтобы присоединиться",
-                    "к числу успешных предпринимателей",
-                    "",
-                    "🎁 СПЕЦИАЛЬНАЯ ЦЕНА: -50% ДО ПОЛУНОЧИ",
-                    "",
-                    "Осталось: 24 часа",
-                    "Свободных мест осталось: 3 из 10"
-                ]
+                # Этап 3: Срочность (красный)
+                bg_colors = ['#ff0844', '#ffb199', '#ff6b6b']
+                text_color = '#ffffff'
+                accent_color = '#fff200'
             
             # Рисуем градиентный фон
-            self._draw_gradient_background(draw, 1080, 1080)
+            self._draw_advanced_gradient(draw, 1080, 1080, bg_colors)
             
             # Настройки шрифта
             try:
-                font_large = ImageFont.truetype("arial.ttf", 48)
-                font_medium = ImageFont.truetype("arial.ttf", 36)
-                font_small = ImageFont.truetype("arial.ttf", 24)
+                # Пытаемся загрузить шрифты
+                font_title = ImageFont.truetype("arial.ttf", 72)
+                font_subtitle = ImageFont.truetype("arial.ttf", 56)
+                font_text = ImageFont.truetype("arial.ttf", 42)
+                font_small = ImageFont.truetype("arial.ttf", 32)
             except:
-                font_large = ImageFont.load_default()
-                font_medium = ImageFont.load_default()
+                # Если шрифты не найдены, используем дефолтные
+                font_title = ImageFont.load_default()
+                font_subtitle = ImageFont.load_default()
+                font_text = ImageFont.load_default()
                 font_small = ImageFont.load_default()
             
-            # Рисуем текст
-            y_offset = 150
-            for i, line in enumerate(lines):
-                if not line.strip():
-                    y_offset += 30
-                    continue
-                
-                if i == 0:  # Заголовок
-                    font = font_large
-                    fill = '#ffd700'
-                elif i == 2:  # Имя пользователя
-                    font = font_medium
-                    fill = '#ffffff'
-                else:
-                    font = font_small
-                    fill = '#ffffff'
-                
-                # Выравнивание по центру
-                bbox = draw.textbbox((0, 0), line, font=font)
-                text_width = bbox[2] - bbox[0]
-                x = (1080 - text_width) // 2
-                draw.text((x, y_offset), line, font=font, fill=fill)
-                y_offset += 60 if i == 0 else 40
+            # Рисуем персонализированный контент
+            if stage == 1:
+                self._draw_stage1_content(draw, user_name, stage)
+            elif stage == 2:
+                self._draw_stage2_content(draw, user_name, stage)
+            else:  # stage 3
+                self._draw_stage3_content(draw, user_name, stage)
             
             # Сохраняем изображение
             output_path.parent.mkdir(exist_ok=True)
@@ -140,6 +109,304 @@ class FunnelBot:
             g = int(126 + (75 - 126) * y / height)
             b = int(234 + (162 - 234) * y / height)
             draw.line([(0, y), (width, y)], fill=(r, g, b))
+    
+    def _draw_advanced_gradient(self, draw, width, height, colors):
+        """Рисует улучшенный градиентный фон"""
+        for y in range(height):
+            # Интерполяция между цветами
+            ratio = y / height
+            if len(colors) == 3:
+                # Трехцветный градиент
+                if ratio < 0.5:
+                    # Переход от первого ко второму цвету
+                    local_ratio = ratio * 2
+                    color1 = self._hex_to_rgb(colors[0])
+                    color2 = self._hex_to_rgb(colors[1])
+                else:
+                    # Переход от второго к третьему цвету
+                    local_ratio = (ratio - 0.5) * 2
+                    color1 = self._hex_to_rgb(colors[1])
+                    color2 = self._hex_to_rgb(colors[2])
+                
+                r = int(color1[0] + (color2[0] - color1[0]) * local_ratio)
+                g = int(color1[1] + (color2[1] - color1[1]) * local_ratio)
+                b = int(color1[2] + (color2[2] - color1[2]) * local_ratio)
+            else:
+                # Двухцветный градиент
+                color1 = self._hex_to_rgb(colors[0])
+                color2 = self._hex_to_rgb(colors[1])
+                r = int(color1[0] + (color2[0] - color1[0]) * ratio)
+                g = int(color1[1] + (color2[1] - color1[1]) * ratio)
+                b = int(color1[2] + (color2[2] - color1[2]) * ratio)
+            
+            draw.line([(0, y), (width, y)], fill=(r, g, b))
+    
+    def _hex_to_rgb(self, hex_color):
+        """Конвертирует hex цвет в RGB"""
+        hex_color = hex_color.lstrip('#')
+        return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+    
+    def _draw_stage1_content(self, draw, user_name, stage):
+        """Рисует контент для этапа 1: Привлечение внимания"""
+        # Эмодзи
+        emoji = "⚡"
+        try:
+            font_emoji = ImageFont.truetype("arial.ttf", 120)
+        except:
+            font_emoji = ImageFont.load_default()
+        
+        # Рисуем эмодзи
+        bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 100), emoji, font=font_emoji, fill='#ffffff')
+        
+        # Заголовок
+        title = "ТЫ ПРОПУСТИЛ\nВАЖНОЕ!"
+        try:
+            font_title = ImageFont.truetype("arial.ttf", 72)
+        except:
+            font_title = ImageFont.load_default()
+        
+        lines = title.split('\n')
+        y_offset = 250
+        for line in lines:
+            bbox = draw.textbbox((0, 0), line, font=font_title)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_title, fill='#ffffff')
+            y_offset += 80
+        
+        # Имя пользователя
+        name_text = f"Привет, {user_name}!"
+        try:
+            font_name = ImageFont.truetype("arial.ttf", 56)
+        except:
+            font_name = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 450), name_text, font=font_name, fill='#ffd700')
+        
+        # Основной текст
+        main_text = [
+            "Каждый день упускаются",
+            "ОГРОМНЫЕ ВОЗМОЖНОСТИ",
+            "из-за неавтоматизированных процессов"
+        ]
+        
+        try:
+            font_text = ImageFont.truetype("arial.ttf", 42)
+        except:
+            font_text = ImageFont.load_default()
+        
+        y_offset = 550
+        for line in main_text:
+            bbox = draw.textbbox((0, 0), line, font=font_text)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_text, fill='#ffffff')
+            y_offset += 50
+        
+        # Финальный призыв
+        final_text = "🔥 НО ЭТО МОЖНО ИСПРАВИТЬ ПРЯМО СЕЙЧАС! 🔥"
+        try:
+            font_final = ImageFont.truetype("arial.ttf", 42)
+        except:
+            font_final = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), final_text, font=font_final)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 750), final_text, font=font_final, fill='#ffffff')
+    
+    def _draw_stage2_content(self, draw, user_name, stage):
+        """Рисует контент для этапа 2: Решение"""
+        # Эмодзи
+        emoji = "💡"
+        try:
+            font_emoji = ImageFont.truetype("arial.ttf", 120)
+        except:
+            font_emoji = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 100), emoji, font=font_emoji, fill='#ffffff')
+        
+        # Заголовок
+        title = "ЕСТЬ РЕШЕНИЕ!"
+        try:
+            font_title = ImageFont.truetype("arial.ttf", 68)
+        except:
+            font_title = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), title, font=font_title)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 250), title, font=font_title, fill='#ffffff')
+        
+        # Имя пользователя
+        name_text = f"{user_name}, мы знаем как помочь"
+        try:
+            font_name = ImageFont.truetype("arial.ttf", 52)
+        except:
+            font_name = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 350), name_text, font=font_name, fill='#00d2d3')
+        
+        # Преимущества
+        benefits = [
+            "📈 +40% ЭФФЕКТИВНОСТИ",
+            "⏱️ -10 ЧАСОВ/НЕДЕЛЮ",
+            "💰 ROI ЗА 30 ДНЕЙ"
+        ]
+        
+        try:
+            font_benefit = ImageFont.truetype("arial.ttf", 48)
+        except:
+            font_benefit = ImageFont.load_default()
+        
+        y_offset = 450
+        for benefit in benefits:
+            bbox = draw.textbbox((0, 0), benefit, font=font_benefit)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), benefit, font=font_benefit, fill='#ffeb3b')
+            y_offset += 60
+        
+        # Описание
+        description = "Наша платформа позволит экономить\n10+ ЧАСОВ В НЕДЕЛЮ\nна рутинных задачах"
+        try:
+            font_desc = ImageFont.truetype("arial.ttf", 38)
+        except:
+            font_desc = ImageFont.load_default()
+        
+        lines = description.split('\n')
+        y_offset = 650
+        for line in lines:
+            bbox = draw.textbbox((0, 0), line, font=font_desc)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_desc, fill='#ffffff')
+            y_offset += 45
+        
+        # Финальный призыв
+        final_text = "🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯"
+        try:
+            font_final = ImageFont.truetype("arial.ttf", 38)
+        except:
+            font_final = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), final_text, font=font_final)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 800), final_text, font=font_final, fill='#ffffff')
+    
+    def _draw_stage3_content(self, draw, user_name, stage):
+        """Рисует контент для этапа 3: Срочность"""
+        # Эмодзи
+        emoji = "🚨"
+        try:
+            font_emoji = ImageFont.truetype("arial.ttf", 120)
+        except:
+            font_emoji = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 100), emoji, font=font_emoji, fill='#ffffff')
+        
+        # Заголовок
+        title = "ПОСЛЕДНИЙ\nШАНС!"
+        try:
+            font_title = ImageFont.truetype("arial.ttf", 75)
+        except:
+            font_title = ImageFont.load_default()
+        
+        lines = title.split('\n')
+        y_offset = 250
+        for line in lines:
+            bbox = draw.textbbox((0, 0), line, font=font_title)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_title, fill='#ffffff')
+            y_offset += 85
+        
+        # Имя пользователя
+        name_text = f"{user_name}, время почти вышло!"
+        try:
+            font_name = ImageFont.truetype("arial.ttf", 48)
+        except:
+            font_name = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 450), name_text, font=font_name, fill='#fff200')
+        
+        # Срочность
+        urgent_text = "⏰ ОСТАЛОСЬ ВСЕГО 24 ЧАСА! ⏰"
+        try:
+            font_urgent = ImageFont.truetype("arial.ttf", 56)
+        except:
+            font_urgent = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), urgent_text, font=font_urgent)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 520), urgent_text, font=font_urgent, fill='#fff200')
+        
+        # Предложение
+        offer_lines = [
+            "🎁 СПЕЦИАЛЬНАЯ ЦЕНА: -50%",
+            "ДО ПОЛУНОЧИ!"
+        ]
+        
+        try:
+            font_offer = ImageFont.truetype("arial.ttf", 44)
+        except:
+            font_offer = ImageFont.load_default()
+        
+        y_offset = 600
+        for line in offer_lines:
+            bbox = draw.textbbox((0, 0), line, font=font_offer)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_offer, fill='#ffffff')
+            y_offset += 50
+        
+        # Количество мест
+        spots_text = "🔥 СВОБОДНЫХ МЕСТ: 3 ИЗ 10 🔥"
+        try:
+            font_spots = ImageFont.truetype("arial.ttf", 38)
+        except:
+            font_spots = ImageFont.load_default()
+        
+        bbox = draw.textbbox((0, 0), spots_text, font=font_spots)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, 720), spots_text, font=font_spots, fill='#fff200')
+        
+        # Финальный призыв
+        final_text = "Не упусти шанс присоединиться к\nУСПЕШНЫМ ПРЕДПРИНИМАТЕЛЯМ!"
+        try:
+            font_final = ImageFont.truetype("arial.ttf", 42)
+        except:
+            font_final = ImageFont.load_default()
+        
+        lines = final_text.split('\n')
+        y_offset = 800
+        for line in lines:
+            bbox = draw.textbbox((0, 0), line, font=font_final)
+            text_width = bbox[2] - bbox[0]
+            x = (1080 - text_width) // 2
+            draw.text((x, y_offset), line, font=font_final, fill='#ffffff')
+            y_offset += 50
     
     def save_user(self, user_data):
         """Сохраняет данные пользователя в CSV"""
