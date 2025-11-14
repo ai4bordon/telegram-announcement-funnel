@@ -19,58 +19,37 @@
             position: relative;
             overflow: hidden;
         }
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.05) 10px,
-                rgba(255,255,255,0.05) 20px
-            );
-            animation: slide 2s linear infinite;
-        }
-        @keyframes slide {
-            0% { transform: translateX(-100px) translateY(-100px); }
-            100% { transform: translateX(100px) translateY(100px); }
-        }
         .content {
             text-align: center;
             max-width: 900px;
             position: relative;
             z-index: 2;
         }
+        .title-box {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            border: 4px solid #fff200;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
         .emoji {
             font-size: 120px;
-            margin-bottom: 40px;
-            animation: shake 0.5s infinite;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            display: block;
         }
         h1 {
             font-size: 75px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-weight: 900;
             text-shadow: 4px 4px 8px rgba(0,0,0,0.5);
             line-height: 1.1;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.7; }
         }
         .name {
             font-size: 48px;
             color: #fff200;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             font-weight: 800;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
@@ -78,42 +57,25 @@
             font-size: 56px;
             color: #fff200;
             font-weight: 900;
-            margin: 40px 0;
+            margin: 30px 0;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: urgentPulse 1s infinite;
-        }
-        @keyframes urgentPulse {
-            0%, 100% { transform: scale(1); color: #fff200; }
-            50% { transform: scale(1.1); color: #ff0844; }
-        }
-        .offer {
-            font-size: 42px;
-            line-height: 1.3;
-            margin: 40px 0;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .limited {
             background: linear-gradient(45deg, #ff0844, #ff6b6b);
             border: 5px solid #fff200;
             padding: 40px;
             border-radius: 25px;
-            margin: 40px 0;
+            margin: 30px 0;
             font-size: 44px;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            animation: borderGlow 2s infinite;
-        }
-        @keyframes borderGlow {
-            0%, 100% { box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px #fff200; }
-            50% { box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 40px #fff200, 0 0 60px #fff200; }
         }
         .countdown {
             background: rgba(0,0,0,0.7);
             padding: 30px;
             border-radius: 20px;
-            margin: 40px 0;
+            margin: 30px 0;
             border: 3px solid #fff200;
         }
         .time {
@@ -129,13 +91,22 @@
             margin-top: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
+        .final-call {
+            font-size: 42px;
+            color: #fff200;
+            font-weight: 800;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <div class="emoji">🚨</div>
-            <h1>ПОСЛЕДНИЙ<br>ШАНС!</h1>
+            <div class="title-box">
+                <span class="emoji">🚨</span>
+                <h1>ПОСЛЕДНИЙ<br>ШАНС!</h1>
+            </div>
             <div class="name">{{name}}, время почти вышло!</div>
             <div class="urgent">⏰ ОСТАЛОСЬ ВСЕГО 24 ЧАСА! ⏰</div>
             <div class="limited">
@@ -146,7 +117,7 @@
                 <div class="time">23:59:45</div>
                 <div class="spots">🔥 СВОБОДНЫХ МЕСТ: 3 ИЗ 10 🔥</div>
             </div>
-            <div class="offer">
+            <div class="final-call">
                 Не упусти шанс присоединиться к<br>
                 <strong>УСПЕШНЫМ ПРЕДПРИНИМАТЕЛЯМ!</strong>
             </div>

@@ -19,55 +19,45 @@
             position: relative;
             overflow: hidden;
         }
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
         .content {
             text-align: center;
             max-width: 900px;
             position: relative;
             z-index: 2;
         }
+        .title-box {
+            background: rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            border: 3px solid #00d2d3;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
         .emoji {
             font-size: 120px;
-            margin-bottom: 40px;
-            animation: rotate 3s ease-in-out infinite;
-        }
-        @keyframes rotate {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            display: block;
         }
         h1 {
             font-size: 68px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-weight: 900;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
             line-height: 1.2;
         }
         .name {
             font-size: 52px;
             color: #00d2d3;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             font-weight: 800;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .benefits {
-            background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            background: rgba(0,0,0,0.2);
             padding: 40px;
             border-radius: 30px;
-            margin: 40px 0;
+            margin: 30px 0;
             border: 3px solid #00d2d3;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
@@ -77,34 +67,38 @@
             margin: 25px 0;
             font-weight: 800;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: slideIn 0.5s ease-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .description {
-            font-size: 38px;
-            line-height: 1.4;
-            margin: 40px 0;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .highlight {
             background: linear-gradient(45deg, #ff6b6b, #feca57);
             padding: 35px;
             border-radius: 25px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border: 4px solid white;
+        }
+        .description {
+            font-size: 38px;
+            line-height: 1.4;
+            margin: 30px 0;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .final-call {
+            font-size: 38px;
+            color: #00d2d3;
+            font-weight: 800;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <div class="emoji">💡</div>
-            <h1>ЕСТЬ РЕШЕНИЕ!</h1>
+            <div class="title-box">
+                <span class="emoji">💡</span>
+                <h1>ЕСТЬ РЕШЕНИЕ!</h1>
+            </div>
             <div class="name">{{name}}, мы знаем как помочь</div>
             <div class="benefits">
                 <div class="benefit">📈 +40% ЭФФЕКТИВНОСТИ</div>
@@ -118,7 +112,7 @@
                     на рутинных задачах
                 </div>
             </div>
-            <div class="description">🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯</div>
+            <div class="final-call">🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯</div>
         </div>
     </div>
 </body>

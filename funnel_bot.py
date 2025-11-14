@@ -73,12 +73,14 @@ class FunnelBot:
             # Настройки шрифта
             try:
                 # Пытаемся загрузить шрифты
+                font_emoji = ImageFont.truetype("arial.ttf", 120)
                 font_title = ImageFont.truetype("arial.ttf", 72)
                 font_subtitle = ImageFont.truetype("arial.ttf", 56)
                 font_text = ImageFont.truetype("arial.ttf", 42)
                 font_small = ImageFont.truetype("arial.ttf", 32)
             except:
                 # Если шрифты не найдены, используем дефолтные
+                font_emoji = ImageFont.load_default()
                 font_title = ImageFont.load_default()
                 font_subtitle = ImageFont.load_default()
                 font_text = ImageFont.load_default()
@@ -86,11 +88,11 @@ class FunnelBot:
             
             # Рисуем персонализированный контент
             if stage == 1:
-                self._draw_stage1_content(draw, user_name, stage)
+                self._draw_stage1_content(draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small)
             elif stage == 2:
-                self._draw_stage2_content(draw, user_name, stage)
+                self._draw_stage2_content(draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small)
             else:  # stage 3
-                self._draw_stage3_content(draw, user_name, stage)
+                self._draw_stage3_content(draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small)
             
             # Сохраняем изображение
             output_path.parent.mkdir(exist_ok=True)
@@ -146,14 +148,10 @@ class FunnelBot:
         hex_color = hex_color.lstrip('#')
         return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
     
-    def _draw_stage1_content(self, draw, user_name, stage):
+    def _draw_stage1_content(self, draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small):
         """Рисует контент для этапа 1: Привлечение внимания"""
         # Эмодзи
         emoji = "⚡"
-        try:
-            font_emoji = ImageFont.truetype("arial.ttf", 120)
-        except:
-            font_emoji = ImageFont.load_default()
         
         # Рисуем эмодзи
         bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
@@ -163,10 +161,6 @@ class FunnelBot:
         
         # Заголовок
         title = "ТЫ ПРОПУСТИЛ\nВАЖНОЕ!"
-        try:
-            font_title = ImageFont.truetype("arial.ttf", 72)
-        except:
-            font_title = ImageFont.load_default()
         
         lines = title.split('\n')
         y_offset = 250
@@ -179,15 +173,11 @@ class FunnelBot:
         
         # Имя пользователя
         name_text = f"Привет, {user_name}!"
-        try:
-            font_name = ImageFont.truetype("arial.ttf", 56)
-        except:
-            font_name = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        bbox = draw.textbbox((0, 0), name_text, font=font_subtitle)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 450), name_text, font=font_name, fill='#ffd700')
+        draw.text((x, 450), name_text, font=font_subtitle, fill='#ffd700')
         
         # Основной текст
         main_text = [
@@ -195,11 +185,6 @@ class FunnelBot:
             "ОГРОМНЫЕ ВОЗМОЖНОСТИ",
             "из-за неавтоматизированных процессов"
         ]
-        
-        try:
-            font_text = ImageFont.truetype("arial.ttf", 42)
-        except:
-            font_text = ImageFont.load_default()
         
         y_offset = 550
         for line in main_text:
@@ -211,24 +196,16 @@ class FunnelBot:
         
         # Финальный призыв
         final_text = "🔥 НО ЭТО МОЖНО ИСПРАВИТЬ ПРЯМО СЕЙЧАС! 🔥"
-        try:
-            font_final = ImageFont.truetype("arial.ttf", 42)
-        except:
-            font_final = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), final_text, font=font_final)
+        bbox = draw.textbbox((0, 0), final_text, font=font_text)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 750), final_text, font=font_final, fill='#ffffff')
+        draw.text((x, 750), final_text, font=font_text, fill='#ffd700')
     
-    def _draw_stage2_content(self, draw, user_name, stage):
+    def _draw_stage2_content(self, draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small):
         """Рисует контент для этапа 2: Решение"""
         # Эмодзи
         emoji = "💡"
-        try:
-            font_emoji = ImageFont.truetype("arial.ttf", 120)
-        except:
-            font_emoji = ImageFont.load_default()
         
         bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
         text_width = bbox[2] - bbox[0]
@@ -237,10 +214,6 @@ class FunnelBot:
         
         # Заголовок
         title = "ЕСТЬ РЕШЕНИЕ!"
-        try:
-            font_title = ImageFont.truetype("arial.ttf", 68)
-        except:
-            font_title = ImageFont.load_default()
         
         bbox = draw.textbbox((0, 0), title, font=font_title)
         text_width = bbox[2] - bbox[0]
@@ -249,15 +222,11 @@ class FunnelBot:
         
         # Имя пользователя
         name_text = f"{user_name}, мы знаем как помочь"
-        try:
-            font_name = ImageFont.truetype("arial.ttf", 52)
-        except:
-            font_name = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        bbox = draw.textbbox((0, 0), name_text, font=font_subtitle)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 350), name_text, font=font_name, fill='#00d2d3')
+        draw.text((x, 350), name_text, font=font_subtitle, fill='#00d2d3')
         
         # Преимущества
         benefits = [
@@ -266,55 +235,38 @@ class FunnelBot:
             "💰 ROI ЗА 30 ДНЕЙ"
         ]
         
-        try:
-            font_benefit = ImageFont.truetype("arial.ttf", 48)
-        except:
-            font_benefit = ImageFont.load_default()
-        
         y_offset = 450
         for benefit in benefits:
-            bbox = draw.textbbox((0, 0), benefit, font=font_benefit)
+            bbox = draw.textbbox((0, 0), benefit, font=font_text)
             text_width = bbox[2] - bbox[0]
             x = (1080 - text_width) // 2
-            draw.text((x, y_offset), benefit, font=font_benefit, fill='#ffeb3b')
+            draw.text((x, y_offset), benefit, font=font_text, fill='#ffeb3b')
             y_offset += 60
         
         # Описание
         description = "Наша платформа позволит экономить\n10+ ЧАСОВ В НЕДЕЛЮ\nна рутинных задачах"
-        try:
-            font_desc = ImageFont.truetype("arial.ttf", 38)
-        except:
-            font_desc = ImageFont.load_default()
         
         lines = description.split('\n')
         y_offset = 650
         for line in lines:
-            bbox = draw.textbbox((0, 0), line, font=font_desc)
+            bbox = draw.textbbox((0, 0), line, font=font_small)
             text_width = bbox[2] - bbox[0]
             x = (1080 - text_width) // 2
-            draw.text((x, y_offset), line, font=font_desc, fill='#ffffff')
+            draw.text((x, y_offset), line, font=font_small, fill='#ffffff')
             y_offset += 45
         
         # Финальный призыв
         final_text = "🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯"
-        try:
-            font_final = ImageFont.truetype("arial.ttf", 38)
-        except:
-            font_final = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), final_text, font=font_final)
+        bbox = draw.textbbox((0, 0), final_text, font=font_small)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 800), final_text, font=font_final, fill='#ffffff')
+        draw.text((x, 800), final_text, font=font_small, fill='#00d2d3')
     
-    def _draw_stage3_content(self, draw, user_name, stage):
+    def _draw_stage3_content(self, draw, user_name, stage, font_emoji, font_title, font_subtitle, font_text, font_small):
         """Рисует контент для этапа 3: Срочность"""
         # Эмодзи
         emoji = "🚨"
-        try:
-            font_emoji = ImageFont.truetype("arial.ttf", 120)
-        except:
-            font_emoji = ImageFont.load_default()
         
         bbox = draw.textbbox((0, 0), emoji, font=font_emoji)
         text_width = bbox[2] - bbox[0]
@@ -323,10 +275,6 @@ class FunnelBot:
         
         # Заголовок
         title = "ПОСЛЕДНИЙ\nШАНС!"
-        try:
-            font_title = ImageFont.truetype("arial.ttf", 75)
-        except:
-            font_title = ImageFont.load_default()
         
         lines = title.split('\n')
         y_offset = 250
@@ -339,27 +287,19 @@ class FunnelBot:
         
         # Имя пользователя
         name_text = f"{user_name}, время почти вышло!"
-        try:
-            font_name = ImageFont.truetype("arial.ttf", 48)
-        except:
-            font_name = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), name_text, font=font_name)
+        bbox = draw.textbbox((0, 0), name_text, font=font_subtitle)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 450), name_text, font=font_name, fill='#fff200')
+        draw.text((x, 450), name_text, font=font_subtitle, fill='#fff200')
         
         # Срочность
         urgent_text = "⏰ ОСТАЛОСЬ ВСЕГО 24 ЧАСА! ⏰"
-        try:
-            font_urgent = ImageFont.truetype("arial.ttf", 56)
-        except:
-            font_urgent = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), urgent_text, font=font_urgent)
+        bbox = draw.textbbox((0, 0), urgent_text, font=font_text)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 520), urgent_text, font=font_urgent, fill='#fff200')
+        draw.text((x, 520), urgent_text, font=font_text, fill='#fff200')
         
         # Предложение
         offer_lines = [
@@ -367,45 +307,32 @@ class FunnelBot:
             "ДО ПОЛУНОЧИ!"
         ]
         
-        try:
-            font_offer = ImageFont.truetype("arial.ttf", 44)
-        except:
-            font_offer = ImageFont.load_default()
-        
         y_offset = 600
         for line in offer_lines:
-            bbox = draw.textbbox((0, 0), line, font=font_offer)
+            bbox = draw.textbbox((0, 0), line, font=font_text)
             text_width = bbox[2] - bbox[0]
             x = (1080 - text_width) // 2
-            draw.text((x, y_offset), line, font=font_offer, fill='#ffffff')
+            draw.text((x, y_offset), line, font=font_text, fill='#ffffff')
             y_offset += 50
         
         # Количество мест
         spots_text = "🔥 СВОБОДНЫХ МЕСТ: 3 ИЗ 10 🔥"
-        try:
-            font_spots = ImageFont.truetype("arial.ttf", 38)
-        except:
-            font_spots = ImageFont.load_default()
         
-        bbox = draw.textbbox((0, 0), spots_text, font=font_spots)
+        bbox = draw.textbbox((0, 0), spots_text, font=font_small)
         text_width = bbox[2] - bbox[0]
         x = (1080 - text_width) // 2
-        draw.text((x, 720), spots_text, font=font_spots, fill='#fff200')
+        draw.text((x, 720), spots_text, font=font_small, fill='#fff200')
         
         # Финальный призыв
         final_text = "Не упусти шанс присоединиться к\nУСПЕШНЫМ ПРЕДПРИНИМАТЕЛЯМ!"
-        try:
-            font_final = ImageFont.truetype("arial.ttf", 42)
-        except:
-            font_final = ImageFont.load_default()
         
         lines = final_text.split('\n')
         y_offset = 800
         for line in lines:
-            bbox = draw.textbbox((0, 0), line, font=font_final)
+            bbox = draw.textbbox((0, 0), line, font=font_small)
             text_width = bbox[2] - bbox[0]
             x = (1080 - text_width) // 2
-            draw.text((x, y_offset), line, font=font_final, fill='#ffffff')
+            draw.text((x, y_offset), line, font=font_small, fill='#fff200')
             y_offset += 50
     
     def save_user(self, user_data):
