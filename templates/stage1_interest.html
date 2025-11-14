@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Этап 1: Привлечение</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container { 
+            width: 1080px; 
+            height: 1080px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px;
+            color: white;
+        }
+        .content {
+            text-align: center;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        .name {
+            font-size: 36px;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        .text {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>🚀 Ты пропустил важное!</h1>
+            <div class="name">Привет, {{name}}!</div>
+            <div class="text">
+                Каждый день упускаются огромные возможности из-за неавтоматизированных процессов.
+            </div>
+            <div class="text">Но это можно исправить прямо сейчас!</div>
+        </div>
+    </div>
+</body>
+</html>
