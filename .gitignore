@@ -189,6 +189,9 @@ users_data.csv
 *.log
 logs/
 
+# Deployment instructions (internal use only)
+DEPLOYMENT.md
+
 # Virtual environment
 venv/
 env/

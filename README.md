@@ -33,7 +33,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/your-username/telegram-announcement-funnel.git
+git clone https://github.com/ai4bordon/telegram-announcement-funnel.git
 cd telegram-announcement-funnel
 ```
 
