@@ -10,78 +10,86 @@
             font-family: 'Segoe UI', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif;
             background: #000;
         }
-        .emoji {
-            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif !important;
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .container { 
-            width: 800px; 
-            height: 600px; 
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff9ff3 100%);
+            width: 1000px; 
+            height: 750px; 
+            background: linear-gradient(135deg, #f97316, #ef4444, #ec4899);
+            background-size: 200% 200%;
+            animation: gradient-animation 10s ease infinite;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 60px;
             color: white;
             position: relative;
             overflow: hidden;
         }
         .content {
             text-align: center;
-            max-width: 720px;
+            max-width: 880px;
             position: relative;
             z-index: 2;
         }
         .title-box {
-            background: rgba(0,0,0,0.5);
-            padding: 25px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            border: 3px solid #fff200;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.65);
+            padding: 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 5px solid #fff200;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
         }
-        .emoji {
-            font-size: 80px;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            display: block;
+        .icon-container {
+            margin-bottom: 25px;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.7));
+            display: flex;
+            justify-content: center;
         }
         h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            font-size: 84px;
+            margin-bottom: 25px;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.85);
             line-height: 1.1;
             color: #ffffff;
         }
         .name {
-            font-size: 32px;
+            font-size: 64px;
             color: #fff200;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.85);
         }
         .highlight {
-            background: linear-gradient(45deg, #ff4757, #ff6b1a);
-            padding: 25px;
-            border-radius: 20px;
-            margin: 20px 0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            border: 3px solid #ffffff;
+            background: linear-gradient(45deg, #c2410c, #991b1b);
+            padding: 40px;
+            border-radius: 30px;
+            margin: 30px 0;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border: 5px solid #ffffff;
         }
         .text {
-            font-size: 28px;
+            font-size: 56px;
             line-height: 1.3;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0px 5px 12px rgba(0, 0, 0, 0.75);
             color: #ffffff;
         }
         .final-call {
-            font-size: 30px;
+            font-size: 60px;
             color: #fff200;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            margin-top: 20px;
+            text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.85);
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
     </style>
 </head>
@@ -89,7 +97,9 @@
     <div class="container">
         <div class="content">
             <div class="title-box">
-                <span class="emoji">⚡️</span>
+                <div class="icon-container">
+                    <span style="font-size: 140px; color: white;">&#9889;</span>
+                </div>
                 <h1>ТЫ ПРОПУСТИЛ<br>ВАЖНОЕ!</h1>
             </div>
             <div class="name">Привет, {{name}}!</div>
@@ -100,7 +110,11 @@
                     из-за неавтоматизированных процессов
                 </div>
             </div>
-            <div class="final-call">🔥 НО ЭТО МОЖНО ИСПРАВИТЬ ПРЯМО СЕЙЧАС! 🔥</div>
+            <div class="final-call">
+                <span style="font-size: 60px; color: #fff200;">&#33;</span>
+                <span>НО ЭТО МОЖНО ИСПРАВИТЬ ПРЯМО СЕЙЧАС!</span>
+                <span style="font-size: 60px; color: #fff200;">&#33;</span>
+            </div>
         </div>
     </div>
 </body>

@@ -9,91 +9,92 @@
         body { 
             font-family: 'Arial Black', 'Arial Bold', 'Segoe UI', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif; 
         }
-        .emoji {
-            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif !important;
-        }
         .container { 
-            width: 800px; 
-            height: 600px; 
+            width: 1000px; 
+            height: 750px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 60px;
             color: white;
             position: relative;
             overflow: hidden;
         }
         .content {
             text-align: center;
-            max-width: 720px;
+            max-width: 880px;
             position: relative;
             z-index: 2;
         }
         .title-box {
             background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #00d2d3;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            padding: 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 5px solid #00d2d3;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
         }
-        .emoji {
-            font-size: 60px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: block;
+        .icon-container {
+            margin-bottom: 25px;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.5));
+            display: flex;
+            justify-content: center;
         }
         h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 84px;
+            margin-bottom: 25px;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
             line-height: 1.2;
         }
         .name {
-            font-size: 24px;
+            font-size: 64px;
             color: #00d2d3;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         .benefits {
             background: rgba(0,0,0,0.2);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border: 2px solid #00d2d3;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+            padding: 40px;
+            border-radius: 30px;
+            margin: 30px 0;
+            border: 5px solid #00d2d3;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
         .benefit {
-            font-size: 20px;
+            font-size: 56px;
             color: #ffeb3b;
-            margin: 12px 0;
+            margin: 25px 0;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         .highlight {
             background: linear-gradient(45deg, #ff6b6b, #feca57);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-            border: 2px solid white;
+            padding: 40px;
+            border-radius: 30px;
+            margin: 30px 0;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            border: 5px solid white;
         }
         .description {
-            font-size: 18px;
+            font-size: 50px;
             line-height: 1.4;
-            margin: 15px 0;
+            margin: 30px 0;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
         .final-call {
-            font-size: 18px;
+            font-size: 54px;
             color: #00d2d3;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-top: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -101,14 +102,25 @@
     <div class="container">
         <div class="content">
             <div class="title-box">
-                <span class="emoji">💡</span>
+                <div class="icon-container">
+                    <span style="font-size: 140px; color: #00d2d3;">&#10003;</span>
+                </div>
                 <h1>ЕСТЬ РЕШЕНИЕ!</h1>
             </div>
             <div class="name">{{name}}, мы знаем как помочь</div>
             <div class="benefits">
-                <div class="benefit">📈 +40% ЭФФЕКТИВНОСТИ</div>
-                <div class="benefit">⏱️ -10 ЧАСОВ/НЕДЕЛЮ</div>
-                <div class="benefit">💰 ROI ЗА 30 ДНЕЙ</div>
+                <div class="benefit">
+                    <span style="font-size: 56px; color: #ffeb3b;">&#8599;</span>
+                    +40% ЭФФЕКТИВНОСТИ
+                </div>
+                <div class="benefit">
+                    <span style="font-size: 56px; color: #ffeb3b;">&#9202;</span>
+                    -10 ЧАСОВ/НЕДЕЛЮ
+                </div>
+                <div class="benefit">
+                    <span style="font-size: 56px; color: #ffeb3b;">$</span>
+                    ROI ЗА 30 ДНЕЙ
+                </div>
             </div>
             <div class="highlight">
                 <div class="description">
@@ -117,7 +129,7 @@
                     на рутинных задачах
                 </div>
             </div>
-            <div class="final-call">🎯 СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ 🎯</div>
+            <div class="final-call">СПЕЦИАЛЬНО ДЛЯ ПРОФЕССИОНАЛОВ</div>
         </div>
     </div>
 </body>

@@ -9,99 +9,111 @@
         body { 
             font-family: 'Arial Black', 'Arial Bold', 'Segoe UI', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif; 
         }
-        .emoji {
-            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'EmojiOne Color', 'Twemoji Mozilla', 'Android Emoji', sans-serif !important;
-        }
         .container { 
-            width: 800px; 
-            height: 600px; 
+            width: 1000px; 
+            height: 750px; 
             background: linear-gradient(135deg, #ff0844 0%, #ffb199 50%, #ff6b6b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 60px;
             color: white;
             position: relative;
             overflow: hidden;
         }
         .content {
             text-align: center;
-            max-width: 720px;
+            max-width: 880px;
             position: relative;
             z-index: 2;
         }
         .title-box {
             background: rgba(0,0,0,0.4);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 3px solid #fff200;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+            padding: 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 5px solid #fff200;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
         }
-        .emoji {
-            font-size: 60px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: block;
+        .icon-container {
+            margin-bottom: 25px;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.5));
+            display: flex;
+            justify-content: center;
         }
         h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+            font-size: 84px;
+            margin-bottom: 25px;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
             line-height: 1.1;
         }
         .name {
-            font-size: 22px;
+            font-size: 64px;
             color: #fff200;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         .urgent {
-            font-size: 24px;
+            font-size: 72px;
             color: #fff200;
             font-weight: 900;
-            margin: 15px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 30px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
         .limited {
             background: linear-gradient(45deg, #ff0844, #ff6b6b);
-            border: 3px solid #fff200;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            font-size: 20px;
+            border: 5px solid #fff200;
+            padding: 40px;
+            border-radius: 30px;
+            margin: 30px 0;
+            font-size: 56px;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-direction: column;
+        }
+        .limited-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         .countdown {
             background: rgba(0,0,0,0.7);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border: 2px solid #fff200;
+            padding: 40px;
+            border-radius: 30px;
+            margin: 30px 0;
+            border: 5px solid #fff200;
         }
         .time {
-            font-size: 28px;
+            font-size: 84px;
             color: #ff0844;
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         .spots {
-            font-size: 18px;
+            font-size: 56px;
             color: #fff200;
             font-weight: 800;
-            margin-top: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-top: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         .final-call {
-            font-size: 18px;
+            font-size: 50px;
             color: #fff200;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-top: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -109,18 +121,32 @@
     <div class="container">
         <div class="content">
             <div class="title-box">
-                <span class="emoji">🚨</span>
+                <div class="icon-container">
+                    <span style="font-size: 140px; color: #ff0844;">&#33;</span>
+                </div>
                 <h1>ПОСЛЕДНИЙ<br>ШАНС!</h1>
             </div>
             <div class="name">{{name}}, время почти вышло!</div>
-            <div class="urgent">⏰ ОСТАЛОСЬ ВСЕГО 24 ЧАСА! ⏰</div>
+            <div class="urgent">
+                <span style="font-size: 72px; color: #fff200;">&#9202;</span>
+                ОСТАЛОСЬ ВСЕГО 24 ЧАСА!
+                <span style="font-size: 72px; color: #fff200;">&#9202;</span>
+            </div>
             <div class="limited">
-                🎁 СПЕЦИАЛЬНАЯ ЦЕНА: -50%<br>
-                ДО ПОЛУНОЧИ!
+                <div class="limited-line">
+                    <span style="font-size: 56px; color: #fff200;">&#42;</span>
+                    СПЕЦИАЛЬНАЯ ЦЕНА: -50%
+                    <span style="font-size: 56px; color: #fff200;">&#42;</span>
+                </div>
+                <div class="limited-line">
+                    <span style="font-size: 56px; color: #ff0844;">&#33;</span>
+                    ДО ПОЛУНОЧИ!
+                    <span style="font-size: 56px; color: #ff0844;">&#33;</span>
+                </div>
             </div>
             <div class="countdown">
                 <div class="time">23:59:45</div>
-                <div class="spots">🔥 СВОБОДНЫХ МЕСТ: 3 ИЗ 10 🔥</div>
+                <div class="spots">СВОБОДНЫХ МЕСТ: 3 ИЗ 10</div>
             </div>
             <div class="final-call">
                 Не упусти шанс присоединиться к<br>
