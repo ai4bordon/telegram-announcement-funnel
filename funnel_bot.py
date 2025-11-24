@@ -514,7 +514,7 @@ def main():
         print("Пожалуйста, добавьте ваш токен бота в файл .env")
         return
     
-    # Создаем приложение
+    # Создаем приложение с правильными настройками для Railway
     app = Application.builder().token(BOT_TOKEN).build()
     
     # Добавляем обработчики
@@ -525,20 +525,35 @@ def main():
     # Запускаем бота
     print("🚀 Бот запущен! Нажмите Ctrl+C для остановки")
     
-    # Проверяем, используется ли webhook
+    # Определяем режим работы
+    port = os.getenv("PORT")
     webhook_url = os.getenv("WEBHOOK_URL")
-    if webhook_url:
-        # Используем webhook если указан URL
-        port = int(os.getenv("PORT", 8080))
-        app.run_webhook(
-            listen="0.0.0.0",
-            port=port,
-            webhook_url=webhook_url
-        )
+    
+    if port and webhook_url:
+        # Railway с webhook
+        print(f"🌐 Используем webhook режим на порту {port}")
+        try:
+            app.run_webhook(
+                listen="0.0.0.0",
+                port=int(port),
+                webhook_url=webhook_url,
+                drop_pending_updates=True  # Очищаем старые обновления
+            )
+        except Exception as e:
+            print(f"❌ Ошибка webhook: {e}")
+            print("🔄 Переключаемся на polling...")
+            app.run_polling(drop_pending_updates=True)
     else:
-        # Используем polling (рекомендуется для Railway)
-        print("� Используем polling режим для получения обновлений")
-        app.run_polling()
+        # Polling режим (безопасный для Railway)
+        print("📡 Используем polling режим для получения обновлений")
+        try:
+            app.run_polling(
+                drop_pending_updates=True,  # Очищаем конфликтующие обновления
+                allowed_updates=["message", "callback_query"]  # Только нужные типы
+            )
+        except Exception as e:
+            print(f"❌ Критическая ошибка polling: {e}")
+            raise
 
 if __name__ == "__main__":
     main()
