@@ -505,6 +505,14 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработчик ошибок"""
     print(f"Update {update} caused error {context.error}")
 
+async def clear_webhook(app):
+    """Принудительно очищает webhook перед polling"""
+    try:
+        await app.bot.delete_webhook(drop_pending_updates=True)
+        print("✅ Webhook очищен")
+    except Exception as e:
+        print(f"⚠️ Ошибка очистки webhook: {e}")
+
 def main():
     """Запуск бота"""
     BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -514,7 +522,7 @@ def main():
         print("Пожалуйста, добавьте ваш токен бота в файл .env")
         return
     
-    # Создаем приложение с правильными настройками для Railway
+    # Создаем приложение для Railway с принудительным polling
     app = Application.builder().token(BOT_TOKEN).build()
     
     # Добавляем обработчики
@@ -522,38 +530,23 @@ def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_error_handler(error_handler)
     
-    # Запускаем бота
-    print("🚀 Бот запущен! Нажмите Ctrl+C для остановки")
+    print("🚀 Бот запущен в POLLING режиме для Railway!")
+    print("📡 Принудительное использование polling (без webhook)")
     
-    # Определяем режим работы
-    port = os.getenv("PORT")
-    webhook_url = os.getenv("WEBHOOK_URL")
-    
-    if port and webhook_url:
-        # Railway с webhook
-        print(f"🌐 Используем webhook режим на порту {port}")
-        try:
-            app.run_webhook(
-                listen="0.0.0.0",
-                port=int(port),
-                webhook_url=webhook_url,
-                drop_pending_updates=True  # Очищаем старые обновления
-            )
-        except Exception as e:
-            print(f"❌ Ошибка webhook: {e}")
-            print("🔄 Переключаемся на polling...")
-            app.run_polling(drop_pending_updates=True)
-    else:
-        # Polling режим (безопасный для Railway)
-        print("📡 Используем polling режим для получения обновлений")
-        try:
-            app.run_polling(
-                drop_pending_updates=True,  # Очищаем конфликтующие обновления
-                allowed_updates=["message", "callback_query"]  # Только нужные типы
-            )
-        except Exception as e:
-            print(f"❌ Критическая ошибка polling: {e}")
-            raise
+    # Принудительно используем только polling для Railway
+    try:
+        # Очищаем webhook перед запуском polling
+        import asyncio
+        asyncio.run(clear_webhook(app))
+        
+        # Запускаем только polling
+        app.run_polling(
+            drop_pending_updates=True,  # Очищаем конфликтующие обновления
+            allowed_updates=["message", "callback_query"]  # Только нужные типы
+        )
+    except Exception as e:
+        print(f"❌ Критическая ошибка polling: {e}")
+        raise
 
 if __name__ == "__main__":
     main()
